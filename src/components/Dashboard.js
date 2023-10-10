@@ -16,8 +16,6 @@ function Dashboard() {
     const [isCalculated, setIsCalculated] = useState(false);
     const [animatedBondScore, setAnimatedBondScore] = useState(0);
     const [shouldAnimate, setShouldAnimate] = useState(false); // New state variable
-    
-    
 
     useEffect(() => {
         const fetchSets = async () => {
@@ -37,10 +35,17 @@ function Dashboard() {
                 const indicatorValue = values[indicatorWithWeight.indicator._id] || 0;
                 const industryMin = industryValues[indicatorWithWeight.indicator._id]?.industryMin || 0;
                 const industryMax = industryValues[indicatorWithWeight.indicator._id]?.industryMax || 0;
-    
-                // Calculate normalized value
-                const normalizedValue = Math.max((indicatorValue - industryMin) / (industryMax - industryMin), 0);
-    
+                
+                let normalizedValue = 0;
+
+                if (industryMin === 0 && industryMax === 0) {
+                    // Handle the case where industryMin and industryMax are both zero
+                    // Set normalizedValue to a default value or handle it in some other way
+                    normalizedValue = 0; 
+                } else {
+                    // Calculate normalized value
+                    normalizedValue = Math.max((indicatorValue - industryMin) / (industryMax - industryMin), 0);
+                }
                 // Return the accumulated score
                 return totalScore + (normalizedValue * indicatorWithWeight.weight);
             }, 0);
