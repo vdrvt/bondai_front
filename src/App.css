@@ -94,11 +94,12 @@
   background-color: rgb(206, 242, 254);
 }
 
+
 .bond-gauge-fill {
   position: absolute;
   height: 100%;
   background: green;
-  transition: width 2s ease-in-out;  /* Adjust the time for your needs */
+  transition: width 1.5s ease-in-out 0.1s;  /* Adjust the time for your needs */
 }
 
 
